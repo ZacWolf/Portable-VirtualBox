@@ -1,4 +1,6 @@
-@echo off       
+@echo off
+
+REM 20201104 - zac@zacwolf.com - Updated User-defined variables, and changed the syntax for ResourceHacker.exe
 
 rem Unseting user variables
 set "aut2exe="
@@ -7,18 +9,17 @@ set "reshack="
 set "signtool="
 
 rem User-defined variables. You may have to change its values to correspond to your system and remove the "rem" statement in front of it.
-rem set "aut2exe=C:\Program Files (x86)\AutoIt3\Aut2Exe\aut2exe.exe"
-rem set "sevenzip=C:\Program Files\7-Zip\7z.exe"
-rem set "reshack=C:\Program Files (x86)\Resource Hacker\ResourceHacker.exe"
+set "aut2exe=%AUT2EXE_HOME%\Aut2exe_x64.exe"
+set "sevenzip=%SEVENZIP_HOME%\7z.exe"
+set "reshack=%OS_WINDOWS_HOME%\9_MISC_TOOLS\ResourceHacker\App\ResourceHacker\ResourceHacker.exe"
 rem End of user-defined variables.
-
 
 
 rem Setting up the different folders used for building. %~dp0 is the folder of the build script itself (may not be the same as the working directory).
 set "input_folder=%~dp0"
-set "build_folder=%input_folder%\build\source"
-set "release_folder=%input_folder%\build\release"
-set "output_name=Portable-VirtualBox_current.exe"
+set "build_folder=%input_folder%build\source"
+set "release_folder=%input_folder%build\release"
+set "output_name=Portable-VirtualBox_6.5.exe"
 
 
 rem Find path for aut2exe
@@ -182,7 +183,9 @@ pushd %build_folder%
 popd
 
 rem Change the icon on the self-extracting archive.
-"%reshack%" -addoverwrite "%release_folder%\Portable-VirtualBox.tmp", "%release_folder%\%output_name%", "%build_folder%\Portable-VirtualBox\source\VirtualBox.ico",ICONGROUP,1,1033
+REM "%reshack%" -addoverwrite "%release_folder%\Portable-VirtualBox.tmp", "%release_folder%\%output_name%", "%build_folder%\Portable-VirtualBox\source\VirtualBox.ico",ICONGROUP,1,1033
+"%reshack%" -open "%release_folder%\Portable-VirtualBox.tmp" -save "%release_folder%\%output_name%" -action addskip -res "%build_folder%\Portable-VirtualBox\source\VirtualBox.ico" -mask ICONGROUP,MAINICON,
+
 
 del /q "%release_folder%\Portable-VirtualBox.tmp"
 
@@ -195,5 +198,3 @@ IF "%~1"=="-s" (
 echo ###############################################################################
 echo Build new release as %release_folder%\%output_name%
 echo ###############################################################################
-
-pause

@@ -75,6 +75,9 @@ Languages of Launcher: English, German, Portuguese, Spanish, French,
 
 Changelog of Starter:
 
+Version 6.5
+- [zac@zacwolf.com] Updated to VirtualBox 6.1.16 to resolve the Windows 10 issues that prevented VirtualBox 5 from running.
+
 Version 6.4.10
 - Install file is now digitally signed for added security. Signer is
   "Open Source Developer, Runar Buvik", certificate issued by Certum Level III CA.
